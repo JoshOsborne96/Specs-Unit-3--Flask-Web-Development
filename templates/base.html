@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>Shopping Site</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/static/site.css"/>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Ubermelon</a>
+            <div class="collapse navbar-collapse">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/melons">All Melons</a>
+                    <a class="nav-link" href="/cart">My Shopping Cart</a>
+                    {% if 'username in session' %}
+                        <a class = "nav-link" id = "logout-btn" href = "/logout">Log Out</a>
+                    {% else %}
+                        <a class ="nav-link" hrefk = "/login">Log In</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+  <div class="container">
+    {% for message in get_flashed_messages() %}
+      <p class="alert alert-warning">{{ message }}</p>
+   {% endfor %}
+
+    <!-- This is where the main content goes. -->
+    {% block body %}
+    <div class = "homepage-container">
+        <h1 id = "ubermelon-heaeder"> Welcome to Ubermelon </h1>
+        <div class = "login-container">
+            <h3>Login to place an order</h3>
+
+            <form method="POST" action ='/login'>
+            <div id = "username-field">{{ form.username.label }}: {{ form.username }}</div>
+            <div id = "password-field">{{ form.password.label }}: {{form.password }}</div>
+            {{ form.csrf_token }}
+            <button id = "submit-btn" class ="btn btn-primary" type = "submit"> Log in</button>
+            </form>
+        </div>
+    </div>
+        {% endblock %}
+
+  </div>
+
+</body>
+</html>
